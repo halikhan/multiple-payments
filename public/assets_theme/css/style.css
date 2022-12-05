@@ -1,0 +1,394 @@
+@font-face {
+  font-family: 'Poppins Light';
+  src: url('../fonts/Poppins-Light.ttf');
+}
+@font-face {
+  font-family: 'Cinzel Medium';
+  src: url('../fonts/Cinzel-Medium.ttf');
+}
+
+*{
+  margin: 0;
+  padding: 0;
+}
+body{
+  margin: 0;
+  padding: 0;
+  font-size: 16px !important;
+  font-family: 'Poppins Light' !important;
+}
+.row.mainRow {align-items: center;}
+/********** HEADER CSS  **********/
+
+header.header .logo a{
+  display: block;
+  max-width: 100%;
+  width: 100px;
+}
+header.header .logo a img{
+  width: 100%;
+  object-fit: contain;
+}
+header.header ul li{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0px 15px;
+}
+header.header .header-nav ul {
+  margin: 0;
+  padding: 0;
+}
+header.header .header-nav ul li a{
+  color: #fff;
+  text-decoration: none;
+  text-transform: capitalize;
+  font-size: 14px;
+  position: relative;
+}
+header.header ul li button {
+  border: none;
+  padding: 8px 20px;
+  background-color: #ec0169;
+  color: #fff;
+  transition: all 0.5s ease;
+}
+header.header ul li button:hover{
+  background-color: #000;
+  transition: all 0.5s ease;
+}
+header.header .header-nav ul li a:hover::before,
+header.header .header-nav ul li a.active::before {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: 100%;
+  border-bottom: 2px solid #EC0169;
+}
+header.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  padding: 20px 0px;
+  transition: all 1s ease;
+  z-index: 100;
+  background-color: transparent;
+  font-family: 'Poppins Light';
+}
+header.header .header-nav {
+  display: flex;
+  justify-content: start;
+}
+/* FIXED HEADER CSS  */
+header.header.fixedHeader {
+  background-color: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  transition: all 1s ease;
+}
+
+
+/* SMALL SCREEN MENU STARTS HERE */
+.menu-small-screen{
+  display: none;
+}
+.toggle-small-screen button {
+  display: block;
+  background-color: transparent;
+  border: none;
+}
+.toggle-small-screen button img {
+  width: 40px;
+  height: 40px;
+}
+.toggle-small-screen {
+  float: right;
+  position: relative;
+  right: 20px;
+}
+header.header .offcanvas{
+  background-color: #000;
+  color: #fff;
+  max-width: 270px;
+  box-shadow: 0px 0px 5px 0px #201e1e;
+}
+header.header .offcanvas .menus-offcanvas ul{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+header.header .offcanvas .menus-offcanvas ul li{
+  display: block;
+  margin: 15px 0px 10px 20px;
+}
+header.header .offcanvas .menus-offcanvas ul li a{
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+header.header .offcanvas .offcanvas-header .btn-close{
+  color: #fff;
+  width: 1em;
+  height: 1em;
+  filter: invert(1);
+  background-size: contain;
+  padding: 5px;
+  margin-right: 10px;
+}
+.toggle-small-screen button {
+  font-size: 30px;
+  color: #fff;
+}
+/* SMALL SCREEN MENU ENDS HERE */
+.menu_large_screen{
+  display: block;
+}
+.menu_small_screen{
+  display: none;
+}
+
+
+
+/* VENDOR REGISTRATION CENTER  */
+section.vendoer_registration{
+  padding-top: 160px;
+  padding-bottom: 100px;text-align: center;
+  background-image: url('../images/banner_img.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+  font-family: 'Poppins Light';
+}
+.section_content{
+  position: relative;
+}
+section.vendoer_registration::before {
+  content: '';
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+  background: rgb(0 0 0 / 65%);
+  pointer-events: none;
+}
+section.vendoer_registration h2 {
+  color: #fff;
+  margin: 20px 0px 70px;
+  font-family: 'Cinzel Medium';
+font-size: 35px;}
+section.vendoer_registration input {
+  width: 100%;
+  margin: 0px 0px 30px;
+  padding: 15px 20px;
+  border: none;
+  outline: none;
+  color: #000;
+}
+section.vendoer_registration input::placeholder{
+  color: #999999;
+}
+section.vendoer_registration button.register_btn {
+  width: 100%;
+  padding: 15px 20px;
+  border: none;
+  text-align: center;
+  background-color: #EC0169;
+  color: #fff;
+  transition: all 0.5s ease;
+}
+section.vendoer_registration button.register_btn:hover{
+  background-color: #000;
+  transition: all 0.5s ease;
+}
+
+
+footer {background-color: #000;color: #fff;padding: 20px 0px;}
+
+footer .copyright p,
+footer .copyright a{
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: #fff;
+font-size: 14px;}
+footer .copyright p span{
+  display: block;
+}
+
+
+
+
+
+
+@media only screen and (max-width: 1024px) {
+  body{
+    font-size: 14px !important;
+  }
+  header.header ul li {
+    margin: 0px 7px;
+  }
+  header.header .logo a {
+    width: 80px;
+  }
+  header.header .header-nav ul li a{
+    font-size: 12px;
+  }
+  header.header ul li button {
+    padding: 8px 15px;
+    font-size: 12px;
+  }
+  footer .copyright p, footer .copyright a {
+    font-size: 12px;
+  }
+  section.vendoer_registration{
+    min-height: 96vh;
+  }
+
+
+}
+
+@media only screen and (max-width: 991px) {
+  .menu_large_screen{
+    display: none;
+  }
+  .menu_small_screen{
+    display: block;
+  }
+  .jus_cent_mob{
+    justify-content: center;
+  }
+}
+
+@media only screen and (max-width: 570px) {
+  body{
+    font-size: 12px !important;
+  }
+  header.header{
+    padding: 20px 15px;
+  }
+  header.header .logo a {
+    width: 80px;
+  }
+  section.vendoer_registration h2 {
+    margin: 20px 0px 40px;
+    font-size: 25px;
+  }
+  section.vendoer_registration {
+    padding-top: 120px;
+    padding-bottom: 50px;
+    min-height: auto;
+  }
+  section.vendoer_registration button.register_btn,
+  section.vendoer_registration input {
+    width: 90%;
+  }
+  footer .copyright p,
+  footer .copyright a {
+    font-size: 12px;
+  }
+
+
+}
+
+
+
+@media only screen and (min-width: 1400px) {
+  body{
+    font-size: 16px !important;
+  }
+  header.header .header-nav ul li a{
+    font-size: 15px;
+  }
+
+}
+
+@media only screen and (min-width: 1600px) {
+  body{
+    font-size: 18px !important;
+  }
+  header.header .header-nav ul li a{
+    font-size: 18px;
+  }
+
+}
+
+@media only screen and (min-width: 1900px) {
+  body{
+    font-size: 20px !important;
+  }
+  header.header .header-nav ul li a{
+    font-size: 20px;
+  }
+  header.header .logo a {
+    width: 150px;
+  }
+  header.header{
+    padding: 40px 0px;
+  }
+  section.vendoer_registration h2 {
+    margin: 90px 0px 60px;
+    font-size: 50px;
+  }
+  header.header ul li button {
+    padding: 20px 40px;
+  }
+  section.vendoer_registration {
+    padding-top: 250px;
+  }
+  section.vendoer_registration button.register_btn,
+  section.vendoer_registration input {
+    margin: 0px 0px 40px;
+    padding: 20px;
+  }
+  footer .copyright p, footer .copyright a {
+    font-size: 18px;
+  }
+  footer {
+    padding: 40px 0px;
+  }
+
+}
+
+@media only screen and (min-width: 2500px) {
+  body{
+    font-size: 26px !important;
+  }
+  header.header ul li {
+    margin: 0px 25px;
+  }
+  header.header .header-nav ul li a{
+    font-size: 26px;
+  }
+  header.header .logo a {
+    width: 180px;
+  }
+  header.header{
+    padding: 50px 0px;
+  }
+  section.vendoer_registration h2 {
+    margin: 150px 0px;
+    font-size: 80px;
+  }
+  section.vendoer_registration button.register_btn,
+  section.vendoer_registration input {
+    margin: 0px 0px 50px;
+    padding: 30px;
+  }
+  footer .copyright p, footer .copyright a {
+    font-size: 22px;
+  }
+  footer {
+    padding: 40px 0px;
+  }
+
+}
