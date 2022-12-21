@@ -1,68 +1,63 @@
-@extends('stripemenu')
+@extends('paypalplanspayment')
 @section('content')
 
-@section('css')
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/animate.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/date-picker.css')}}">
-<link rel="stylesheet" type="text/css" href="{{ asset('assets/css/vendors/dropzone.css')}}">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-@endsection
-
-@section('style')
-
-@endsection
-
-@section('breadcrumb-title')
-<h3>Package</h3>
-@endsection
-
-@section('breadcrumb-items')
-<li class="breadcrumb-item">Package </li>
-<li class="breadcrumb-item active">links</li>
-@endsection
-
-@section('content')
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12">
         <div class="card">
             <div class="card-header">
-                <h5>Create</h5>
+                <h5>Create Product</h5>
             </div>
-            {{-- <form class="form theme-form"> --}}
-                <form class="form theme-form"id="" action="{{ route("Package_store") }}" enctype="multipart/form-data" method="post">
+            {{-- {{ route("Package_store") }} --}}
+                <form class="form theme-form"id="" action="{{ route("product.store") }}" enctype="multipart/form-data" method="post">
                     @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Plan Name.*</label>
-                                <input name="name" class="form-control btn-square" value="{{ old('name') }}"  id="exampleFormControlInput10" type="text" placeholder="name">
+                                <input name="name" class="form-control btn-square" value="{{ old('name') }}"  id="exampleFormControlInput10" type="text" placeholder="Video Streaming Service Plan">
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput10">Plan ID.*</label>
+                                <input name="product_id" class="form-control btn-square" value="{{ old('product_id') }}"  id="exampleFormControlInput10" type="text" placeholder="PROD-XXCD1234QWER65782">
+                            </div>
+                        </div>
+                    </div> --}}
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput10">Short Description.*</label>
+                                <input name="description" class="form-control btn-square" value="{{ old('description') }}"  id="exampleFormControlInput10" type="text" placeholder="Video Streaming Service basic plan">
+                            </div>
+                        </div>
+                    </div>
+                    {{-- <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput10">Type.*</label>
+                                <input name="type" class="form-control btn-square"  id="exampleFormControlInput10" type="text" value="{{ old('type') }}" placeholder="Type">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
-                                <label for="exampleFormControlInput10">Price.*</label>
-                                <input name="price" class="form-control btn-square"  id="exampleFormControlInput10" type="number" value="{{ old('price') }}" maxlength="2" placeholder="price">
+                                <label for="exampleFormControlInput10">Category.*</label>
+                                <input name="category" value="usd" class="form-control btn-square"  id="exampleFormControlInput10" type="text" value="{{ old('category') }}" placeholder="category">
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="mb-3">
-                                <label for="exampleFormControlInput10">Currency.*</label>
-                                <input name="currency" value="usd" class="form-control btn-square"  id="exampleFormControlInput10" type="text" readonly>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
+                    </div> --}}
+                    {{-- <div class="row">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Interval Count.*</label>
-                                <input name="intervalCount" class="form-control btn-square"  id="exampleFormControlInput10" type="number" placeholder="Interval Count">
+                                <input name="interval_count" class="form-control btn-square"  id="exampleFormControlInput10" type="number" placeholder="Interval Count">
                             </div>
                         </div>
                     </div>
@@ -70,19 +65,17 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Billing Period.*</label>
-                                {{-- <input name="type" class="form-control btn-square" id="exampleFormControlInput10" type="text" placeholder="type"> --}}
-                                {{-- <div class="form-control" style="width:200px;"> --}}
-                                    <select name="billing_Period" value="{{ old('billing_Period') }}" class="form-control" style="width:200px;">
+
+                                    <select name="interval_unit" value="{{ old('interval_unit') }}" class="form-control" style="width:200px;">
                                       <option disabled selected>Select Plan</option>
-                                      <option value="week">Weekly</option>
-                                      <option value="month">Monthly</option>
-                                      <option value="year">Yearly</option>
-                                      <option value="day">Day</option>
+                                      <option value="WEEK">Weekly</option>
+                                      <option value="MONTH">Monthly</option>
+                                      <option value="YEAR">Yearly</option>
                                     </select>
-                                  {{-- </div> --}}
+
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="card-footer">
                     <button class="btn btn-primary" type="submit">Submit</button>

@@ -83,6 +83,23 @@ class CustomAuthController extends Controller
 
         // return redirect("login")->withSuccess('You are not allowed to access');
     }
+    public function paypalsinglepaymentMenu()
+    {
+        if(Auth::check()){
+            return view('singlepaypalpaymentmenue');
+        }
+
+        // return redirect("login")->withSuccess('You are not allowed to access');
+    }
+    public function paypalPlansMenu()
+    {
+        if(Auth::check()){
+            return view('paypalplanspayment');
+        }
+
+        // return redirect("login")->withSuccess('You are not allowed to access');
+    }
+
     public function signOut() {
         Session::flush();
         Auth::logout();

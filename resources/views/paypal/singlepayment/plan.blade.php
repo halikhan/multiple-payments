@@ -1,20 +1,14 @@
-@extends('paypalmenue')
+@extends('singlepaypalpaymentmenue')
 
 @section('content')
     <html lang="en">
-    {{-- <?php
-    $data['VednorReg'] = Session::get('VednorReg');
-    $data['VednorLocation'] = Session::get('VednorLocation');
-    $data['package_id'] = Session()->get('package_id');
-    dd($data);
-    ?> --}}
 
     <head>
         <meta charset="UTF-8" />
         <title>Document</title>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css"
-            integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.css" integrity="sha512-f8gN/IhfI+0E9Fc/LKtjVq4ywfhYAVeMGKsECzDUHcFJ5teVwvKTqizm+5a84FINhfrgdvjX8hEJbem2io1iTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.css">
 
@@ -36,9 +30,9 @@
 
             .pricing {
                 text-align: center;
-                /* border: 1px solid #f0f0f0; */
+                border: 1px solid #f0f0f0;
                 color: #777;
-                font-size: 24px;
+                font-size: 14px;
                 padding-left: 0;
                 margin-bottom: 30px;
                 font-family: 'Lato';
@@ -142,72 +136,62 @@
             .p-blue button {
                 background: #3f4bb8;
             }
+            .title {
+                color: #ffffff;
+                text-align: center;
+            }
         </style>
     </head>
 
     <body>
-        <section class="signin-section pt-5">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-10 pt-4 mx-auto">
-                        <h1 class="forget-password-text pricing">Payment Update Details</h1>
+        <section class="container">
+            <h1 class="title">Single Payment</h1>
+            <div class="row white">
+                <div class="block">
 
-                        <div class="col-lg-8 mx-auto mt-5 text-center">
-                            <div class="paymentWrap d-flex justify-content-center">
-                                <div class="btn-group paymentBtnGroup btn-group-justified" data-toggle="buttons">
+                    @foreach ($getCMS as $key => $value)
+                        <div class="col-xs-12 col-sm-6 col-md-3">
+                            <ul class="pricing p-green">
+                                <li>
 
-                                    <input type="hidden" value="{{ csrf_token() }}" name="_token" id="_token" />
-                                    <form id="regiterForm">
-                                        {{ csrf_field() }}
-                                        <div class="d-flex justify-content-center mt3 mb5 wow bounceIn">
-                                            <div id="paypal-button-container"></div>
-                                        </div>
-                                    </form>
+                                    {{-- <img src="{{asset('img/stuvi-logo.png')}}" alt="logo" class="img-size-50 mr-3 img-circle"> --}}
+                                    <img src="https://pngimg.com/uploads/cricket/cricket_PNG87.png" alt="" style="width:200px; height:200px;">
+                                </li>
+                                <li>{{ $value->details }}</li>
+                                <li>Color Customization</li>
+                                {{-- <li>HTML5 & CSS3</li>
+                                <li>Styled elements</li> --}}
+                                <li>
+                                    <h3>$ {{ $value->amount }}</h3>
+                                    <span>per month</span>
+                                </li>
+                                <li>
+                                    <a href="{{ route('singlepayment.button', $value->id) }}"><button type="button"title="">
+                                            Buy Now</button></a>
+                                            {{-- <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                                <input type="hidden" name="cmd" value="{{ $value->amount }}">
+                                                <input type="hidden" name="hosted_button_id" value="AVKZGVDZMEDLG">
+                                                <input type="image" src="https://www.sandbox.paypal.com/en_US/i/btn/btn_buynow_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+                                                <img alt="" border="0" src="https://www.sandbox.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+                                                </form> --}}
 
-                                </div>
-                            </div>
-
+                                </li>
+                            </ul>
                         </div>
+                    @endforeach
 
-                    </div>
-                </div>
-            </div>
-
-        </section>
-        <script
-            src="https://www.paypal.com/sdk/js?client-id=Ab5PCDYtf-pseiX8jTaktOtJSuhiN5HRXxAtiZjj62yKeu0jwx0oOJzt0eOJaeu5nA8NzOzIAVj7c9LH&components=buttons&vault=true&intent=subscription">
-        </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-sweetalert/1.0.1/sweetalert.min.js"
-            integrity="sha512-MqEDqB7me8klOYxXXQlB4LaNf9V9S0+sG1i8LtPOYmHqICuEZ9ZLbyV3qIfADg2UJcLyCm4fawNiFvnYbcBJ1w=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-        <script>
-            var planLocalId = '{{ $getPackage->id }}';
-            var plan_id_array = [null, 'P-4TK50679J7100910FMMRDOHA', 'P-5HF49382K0325400CMMRDPRY', 'P-5AT46520GG668923XMMRDQNQ',
-                'P-8PW49365EN562770EMMRDUVA'
-            ];
-            paypal.Buttons({
-                createSubscription: function(data, actions) {
-                    return actions.subscription.create({
-                        'plan_id': plan_id_array[planLocalId]
-                    });
-                },
-                onApprove: function(data, actions) {
-                    console.log(data);
-
-                    $.ajax({
-                        url: '{{ route('subcription.updatepaypal_payment') }}',
+                    {{-- $.ajax({
+                        url: '{{ route('store.single.payment') }}',
                         type: 'GET',
                         data: data,
                         success: function(data) {
                             // $("#pageloader").fadeIn();
                             if (data.status == 200) {
-                                console.log(data, 'payment successful');
-                                setTimeout(function() {
-                                    toastr.success("You have successfully Updated the plan");
-                                }, 1000)
-                                location.href = "{{ route('subcription.index') }}";
+                                console.log(data,'payment successful');
+                                    setTimeout(function(){
+                                    toastr.success("You have successfully purchased the plan");
+                                        }, 1000)
+                                location.href = "{{ route('single.payment.index') }}";
                             } else {
                                 swal({
                                     title: "Dear User!",
@@ -215,15 +199,13 @@
                                     type: "error",
                                     icon: "error",
                                 });
-
                             }
                         }
+                    }); --}}
 
-                    });
-                    console.log('Transaction completed');
-                }
-            }).render('#paypal-button-container');
-        </script>
+                </div><!-- /block -->
+            </div><!-- /row -->
+        </section>
         <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     </body>
 

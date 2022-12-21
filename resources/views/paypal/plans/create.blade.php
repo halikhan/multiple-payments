@@ -1,4 +1,4 @@
-@extends('stripemenu')
+@extends('paypalplanspayment')
 @section('content')
 
 @section('css')
@@ -14,12 +14,12 @@
 @endsection
 
 @section('breadcrumb-title')
-<h3>Package</h3>
+<h3>Paypal </h3>
 @endsection
 
 @section('breadcrumb-items')
-<li class="breadcrumb-item">Package </li>
-<li class="breadcrumb-item active">links</li>
+<li class="breadcrumb-item">Plans  </li>
+<li class="breadcrumb-item active">Payment</li>
 @endsection
 
 @section('content')
@@ -30,15 +30,31 @@
             <div class="card-header">
                 <h5>Create</h5>
             </div>
-            {{-- <form class="form theme-form"> --}}
-                <form class="form theme-form"id="" action="{{ route("Package_store") }}" enctype="multipart/form-data" method="post">
+            {{-- {{ route("Package_store") }} --}}
+                <form class="form theme-form"id="" action="{{ route("plans.store") }}" enctype="multipart/form-data" method="post">
                     @csrf
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Plan Name.*</label>
-                                <input name="name" class="form-control btn-square" value="{{ old('name') }}"  id="exampleFormControlInput10" type="text" placeholder="name">
+                                <input name="name" class="form-control btn-square" value="{{ $getPaypalProduct->name}}"  id="exampleFormControlInput10" type="text" placeholder="Video Streaming Service Plan" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput10">Plan ID.*</label>
+                                <input name="product_id" class="form-control btn-square" value="{{ $product_id }}"  id="exampleFormControlInput10" type="text" placeholder="PROD-XXCD1234QWER65782" readonly>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3">
+                                <label for="exampleFormControlInput10">Short Description.*</label>
+                                <input name="description" class="form-control btn-square" value="{{ $getPaypalProduct->description}}"  id="exampleFormControlInput10" type="text" placeholder="Video Streaming Service basic plan" readonly>
                             </div>
                         </div>
                     </div>
@@ -46,7 +62,7 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Price.*</label>
-                                <input name="price" class="form-control btn-square"  id="exampleFormControlInput10" type="number" value="{{ old('price') }}" maxlength="2" placeholder="price">
+                                <input name="fixed_price" class="form-control btn-square"  id="exampleFormControlInput10" type="number" value="{{ old('fixed_price') }}"  placeholder="Price">
                             </div>
                         </div>
                     </div>
@@ -54,32 +70,30 @@
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Currency.*</label>
-                                <input name="currency" value="usd" class="form-control btn-square"  id="exampleFormControlInput10" type="text" readonly>
+                                <input name="currency_code" value="usd" class="form-control btn-square"  id="exampleFormControlInput10" type="text" readonly>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col">
                             <div class="mb-3">
                                 <label for="exampleFormControlInput10">Interval Count.*</label>
-                                <input name="intervalCount" class="form-control btn-square"  id="exampleFormControlInput10" type="number" placeholder="Interval Count">
+                                <input name="interval_count" class="form-control btn-square"  id="exampleFormControlInput10" maxlength="2" type="text" placeholder="Interval Count">
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="col">
                             <div class="mb-3">
-                                <label for="exampleFormControlInput10">Billing Period.*</label>
-                                {{-- <input name="type" class="form-control btn-square" id="exampleFormControlInput10" type="text" placeholder="type"> --}}
-                                {{-- <div class="form-control" style="width:200px;"> --}}
-                                    <select name="billing_Period" value="{{ old('billing_Period') }}" class="form-control" style="width:200px;">
+                                <label>Billing Period.*</label>
+
+                                    <select name="interval_unit" value="{{ old('interval_unit') }}" class="form-control" style="width:200px;">
                                       <option disabled selected>Select Plan</option>
-                                      <option value="week">Weekly</option>
-                                      <option value="month">Monthly</option>
-                                      <option value="year">Yearly</option>
-                                      <option value="day">Day</option>
+                                      <option value="WEEK">Weekly</option>
+                                      <option value="MONTH">Monthly</option>
+                                      <option value="YEAR">Yearly</option>
                                     </select>
-                                  {{-- </div> --}}
+
                             </div>
                         </div>
                     </div>

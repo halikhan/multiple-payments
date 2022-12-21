@@ -19,7 +19,6 @@ class PaypalPackagesController extends Controller
      */
     public function index()
     {
-        // dd('Package');
         $getCMS = Package::all();
         return view('paypal.Package.index',get_defined_vars());
 
@@ -28,12 +27,11 @@ class PaypalPackagesController extends Controller
 
     public function plans()
     {
-        // dd('Package');
-         $getCMS = Package::all();
+        $getCMS = Package::all();
         return view('paypal.Package.plan',get_defined_vars());
 
     }
- 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -41,7 +39,7 @@ class PaypalPackagesController extends Controller
      */
     public function create()
     {
-
+        // dd('stripe plans create');
         return view('paypal.Package.create');
 
     }
@@ -59,7 +57,6 @@ class PaypalPackagesController extends Controller
             'details' => "required|max:255",
             'amount' => "required|max:255",
             'type' => "required|max:255",
-            // 'title' => "required|unique:packages",
         ]);
 
         $cms = new Package();
@@ -89,20 +86,12 @@ class PaypalPackagesController extends Controller
     public function paymentupdate(Request $request,$id)
     {
 
-        // dd($id);
+
         $currentURL = url('https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=BA-26B91448FW9877514&country.x=US&locale.x=en_US&mode=member&token=6D452910EX8134150')->current();
         dd($currentURL);
-
-        // $data = $request->id;
-        // $data = 'https://www.sandbox.paypal.com/webapps/billing/subscriptions?ba_token=BA-26B91448FW9877514&country.x=US&locale.x=en_US&mode=member&token=6D452910EX8134150';
-        // dd($data);
-
         $packageSubs = Paypalpayment::where('package_id', $id)->orderBy('id', 'desc')->first();
         $amount ['data']= $packageSubs['package_amount'];
-        //  $data = json_decode($packageSubs->package_amount, true);
-        // return $data;
         $transactionid = json_decode($packageSubs->package_response)->subscriptionID;
-
         $data = json_decode('[
             {
               "op": "replace",
@@ -113,13 +102,10 @@ class PaypalPackagesController extends Controller
               }
             }
           ]', true);
-        // return data[];
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->updateSubscription($transactionid, $data);
-        // return jaso($response);
-        // return redirect()->json($response['paypal_link']);
         return response()->json([
             $response,
             'status' => 'success'
@@ -128,18 +114,14 @@ class PaypalPackagesController extends Controller
     }
     public function paymentSuspend(Request $request,$id)
     {
-        // dd($id);
+
         $packageSubs = Paypalpayment::where('package_id', $id)->orderBy('id', 'desc')->first();
-         $amount ['data']= $packageSubs['package_amount'];
-        //  $data = json_decode($packageSubs->package_amount, true);
-        // return $data;
+        $amount ['data']= $packageSubs['package_amount'];
         $transactionid = json_decode($packageSubs->package_response)->subscriptionID;
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
         $provider->getAccessToken();
         $response = $provider->suspendSubscription($transactionid , 'Item out of stock');
-        // return jaso($response);
-        // return redirect()->json($response['paypal_link']);
         return response()->json([
             $response,
             'status' => 'success'
@@ -179,7 +161,6 @@ class PaypalPackagesController extends Controller
         $cms->type = $request->type;
         $cms->details = $request->details;
         $cms->save();
-
         $notification = array('message' =>'Your data updated Successfully ' , 'alert-type'=>'success' );
         return redirect()->route('Package')->with($notification);
 
@@ -194,7 +175,6 @@ class PaypalPackagesController extends Controller
 
     public function destroy($id)
     {
-        // dd($id);
         $cms = Package::where('id',$id)->first();
         $cms->delete();
         return redirect()->route('paypal.packages');

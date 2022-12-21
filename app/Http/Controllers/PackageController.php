@@ -21,27 +21,38 @@ class PackageController extends Controller
      */
     public function index()
     {
-        // dd('Package');
         $getCMS = planstriple::all();
-        return view('Package.index',get_defined_vars());
-
+        return view('Package.index', get_defined_vars());
     }
     public function showsubscription()
     {
-        // dd('Package');
-         $getsubscription = Subscription::where('user_id',Auth::user()->id)->orderBy('id', 'DESC')->get();
-        // return $getsubscription = Subscription::where('user_id',Auth::user()->id)->with('plan')->get();
-        // $getCMS = planstriple::all();
-        return view('Package.showsubscriptions',get_defined_vars());
-
+        $getsubscription = Subscription::where('user_id', Auth::user()->id)->orderBy('id', 'DESC')->get();
+        return view('Package.showsubscriptions', get_defined_vars());
     }
 
     public function plans()
     {
-        // dd('Package');
         $getCMS = planstriple::all();
-        return view('Package.plan',get_defined_vars());
+        return view('Package.plan', get_defined_vars());
+    }
 
+    public function cancel_subscription(request $request)
+    {
+        $subcriptionName = $request->subscriptioname;
+        if ($subcriptionName) {
+            $user = Auth::user();
+            $user->subscription($subcriptionName)->cancel();
+        }
+        return response('data');
+    }
+    public function resume_subscription(request $request)
+    {
+        $subcriptionName = $request->subscriptioname;
+        if ($subcriptionName) {
+            $user = Auth::user();
+            $user->subscription($subcriptionName)->resume();
+        }
+        return response('resumesubs');
     }
 
     /**
@@ -51,36 +62,10 @@ class PackageController extends Controller
      */
     public function create()
     {
-
+        // dd('stripe');
         return view('Package.create');
 
     }
-    public function cancel_subscription(request $request){
-        // dd($request->all());
-
-        $subcriptionName = $request->subscriptioname;
-        if($subcriptionName){
-            $user = Auth::user();
-            $user->subscription($subcriptionName)->cancel();
-        }
-        return response('data');
-                    //     $notification = array('message' =>$ex->getMessage(), 'alert-type'=>'success' );
-                    // return redirect()->back()->with($notification);
-    }
-    public function resume_subscription(request $request){
-        // dd($request->all());
-
-        $subcriptionName = $request->subscriptioname;
-        if($subcriptionName){
-            $user = Auth::user();
-            $user->subscription($subcriptionName)->resume();
-        }
-        return response('resumesubs');
-                    //     $notification = array('message' =>$ex->getMessage(), 'alert-type'=>'success' );
-                    // return redirect()->back()->with($notification);
-    }
-
-
     /**
      * Store a newly created resource in storage.
      *
@@ -89,8 +74,7 @@ class PackageController extends Controller
      */
     public function store(Request $request)
     {
-    //   return $request->all();
-
+        // dd($request->intervalCount);
         $this->validate($request, [
             'name' => "required|max:255",
             'price' => "required|max:255",
@@ -99,42 +83,42 @@ class PackageController extends Controller
 
         ]);
 
+
+
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $amount = ($request->price * 100);
-            try{
-            $plan_id = \Stripe\Plan::create(array(
-                "amount" =>  $amount,
-                "interval_count" => $request->intervalCount,
-                "interval" => $request->billing_Period,
-                "product" => array(
-                    "name" => $request->name
-                ),
-                "currency" => "usd",
-                // "id" => $request->name
-                ));
+        // dd($amount);
+        try {
+            $plan_id = \Stripe\Plan::create(
+                array(
+                    "amount" =>  $amount,
+                    "interval_count" => $request->intervalCount,
+                    "interval" => $request->billing_Period,
+                    "product" => array(
+                        "name" => $request->name
+                    ),
+                    "currency" => "usd",
+                )
+            );
+        // dd($plan_id);
 
-            }
-            catch(Exception $ex){
-                    // dd($ex->getMessage());
-                    $notification = array('message' =>$ex->getMessage(), 'alert-type'=>'success' );
-                    return redirect()->back()->with($notification);
-            }
+        } catch (Exception $ex) {
 
-            // dd($plan_id->id);
-                $cms = new planstriple();
-                $cms->name = $request->name;
-                $cms->slug = Str::slug($request->name.Str::random(4), '-');
-                $cms->price = $request->price;
-                $cms->interval_count = $request->intervalCount;
-                $cms->billing_payment = $request->billing_Period;
-                $cms->currency = 'usd';
-                $cms->plan_id = $plan_id->id;
-                $cms->save();
-            // return 'success';
+            return  $notification = array('message' => $ex->getMessage(), 'alert-type' => 'success');
+            return redirect()->back()->with($notification);
+        }
 
-        $notification = array('message' =>'Your plan has been created Successfully ' , 'alert-type'=>'success' );
+        $cms = new planstriple();
+        $cms->name = $request->name;
+        $cms->slug = Str::slug($request->name . Str::random(4), '-');
+        $cms->price = $request->price;
+        $cms->interval_count = $request->intervalCount;
+        $cms->billing_payment = $request->billing_Period;
+        $cms->currency = 'usd';
+        $cms->plan_id = $plan_id->id;
+        $cms->save();
+        $notification = array('message' => 'Your plan has been created Successfully ', 'alert-type' => 'success');
         return redirect()->route('Package')->with($notification);
-
     }
 
     /**
@@ -145,44 +129,42 @@ class PackageController extends Controller
      */
     public function paypal_form(Request $request)
     {
-        // dd($id  );
         $user = Auth::user();
-        // $getpayment = Package::where('id', $id)->first();
-        return view('Package.stripeform',
-    [
-        'intent' => $user->createSetupIntent(),
-    ],get_defined_vars());
+        return view(
+            'Package.stripeform',
+            [
+                'intent' => $user->createSetupIntent(),
+            ],
+            get_defined_vars()
+        );
     }
 
     public function singlestripe(Request $request)
     {
-        // dd($id  );
-        // dd('payment');
         $user = Auth::user();
-        // $getpayment = Package::where('id', $id)->first();
-        return view('Package.singlestripe',
-    [
-        'intent' => $user->createSetupIntent(),
-    ],get_defined_vars());
+        return view(
+            'Package.singlestripe',
+            [
+                'intent' => $user->createSetupIntent(),
+            ],
+            get_defined_vars()
+        );
     }
 
 
     public function stripe_payment(Request $request)
     {
 
-        //    return $request->all();
-       $useramount = (round($request->amount));
-
-       //    return $useramount;
-       $paymentMethod = $request->payment_method;
-       $user = Auth::user();
-       $user->createOrGetStripeCustomer();
-       $paymentMethodid =$user->addPaymentMethod($paymentMethod);
-       $user->charge(
-        $useramount, $paymentMethodid->id
+        $useramount = (round($request->amount));
+        $paymentMethod = $request->payment_method;
+        $user = Auth::user();
+        $user->createOrGetStripeCustomer();
+        $paymentMethodid = $user->addPaymentMethod($paymentMethod);
+        $user->charge(
+            $useramount,
+            $paymentMethodid->id
         );
         return redirect()->route('plans.list');
-
     }
     /**
      * Show the form for editing the specified resource.
@@ -192,8 +174,8 @@ class PackageController extends Controller
      */
     public function edit($id)
     {
-        $edit_data = planstriple::where('id',$id)->first();
-        return view('Package.edit',get_defined_vars());
+        $edit_data = planstriple::where('id', $id)->first();
+        return view('Package.edit', get_defined_vars());
     }
 
     /**
@@ -219,9 +201,8 @@ class PackageController extends Controller
         $cms->currency = $request->currency;
         $cms->save();
 
-        $notification = array('message' =>'Your data updated Successfully ' , 'alert-type'=>'success' );
+        $notification = array('message' => 'Your data updated Successfully ', 'alert-type' => 'success');
         return redirect()->route('Package')->with($notification);
-
     }
 
     /**
@@ -234,10 +215,8 @@ class PackageController extends Controller
     public function destroy($id)
     {
         // dd($id);
-        $cms = planstriple::where('id',$id)->first();
+        $cms = planstriple::where('id', $id)->first();
         $cms->delete();
         return redirect()->route('Package');
     }
-
-
 }

@@ -46,7 +46,7 @@
                                         <th>Amount</th>
                                         <th>Type</th>
                                         <th>Details</th>
-                                        <th>Package</th>
+                                        {{-- <th>Package</th> --}}
                                            {{-- <th>Suspend</th> --}}
                                         <th>Edit</th>
                                     </tr>
@@ -59,12 +59,12 @@
                                             <td>{{ $value->amount }}</td>
                                             <td>{{ $value->type }}</td>
                                             <td>{{ $value->details }}</td>
-                                           <td>
+                                           {{-- <td>
                                                 <form class="form theme-form"id="" action="{{ route('paypal.package.payment.update', $value->id ??'') }}" enctype="multipart/form-data" method="post">
                                                     @csrf
                                                   <button class="btn btn-info" type="submit"> Update</button>
                                                 </form>
-                                            </td>
+                                            </td> --}}
                                              {{-- <td>
                                                 <form class="form theme-form"id="" action="{{ route('package.paymentSuspend', $value->id ??'') }}" enctype="multipart/form-data" method="post">
                                                     @csrf

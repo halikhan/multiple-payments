@@ -140,6 +140,7 @@
             <div class="row white">
                 <div class="block">
 
+                    <h3 class="forget-password-text pricing">Update Subscription</h3>
                     @foreach ($getCMS as $key => $value)
                         <div class="col-xs-12 col-sm-6 col-md-3">
                             <ul class="pricing p-green">
@@ -156,8 +157,8 @@
                                     <span>per month</span>
                                 </li>
                                 <li>
-                                    <a href="{{ route('paypal.updatepaypal', $value->id ?? '') }}"><button type="button"title="">
-                                            Subscribe Now</button></a>
+                                    <a href="{{ route('updatepaypal.amount', $value->id ?? '') }}"><button type="button"title="">
+                                            Update Now</button></a>
                                 </li>
                             </ul>
                         </div>

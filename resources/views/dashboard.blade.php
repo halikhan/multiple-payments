@@ -902,12 +902,12 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                                <a class="hex-content">
+                                <a class="hex-content" href="{{ route('paypal.singlepayment.menu') }}">
                                     <span class="hex-content-inner">
                                         <span class="icon">
                                             <i class="fa fa-id-badge"></i>
                                         </span>
-                                        <span class="title">Resume</span>
+                                        <span class="title">Paypal Single Payment</span>
                                     </span>
                                     <svg viewBox="0 0 173.20508075688772 200" height="200" width="174"
                                         version="1.1" xmlns="http://www.w3.org/2000/svg">
@@ -960,12 +960,12 @@
                                     <div></div>
                                     <div></div>
                                 </div>
-                                <a class="hex-content">
+                                <a class="hex-content" href="{{ route('paypal.plans.menu') }}">
                                     <span class="hex-content-inner">
                                         <span class="icon">
                                             <i class="fa fa-clipboard"></i>
                                         </span>
-                                        <span class="title">Testimonials</span>
+                                        <span class="title">Paypal Plans</span>
                                     </span>
                                     <svg viewBox="0 0 173.20508075688772 200" height="200" width="174"
                                         version="1.1" xmlns="http://www.w3.org/2000/svg">
